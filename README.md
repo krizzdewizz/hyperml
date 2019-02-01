@@ -1,6 +1,8 @@
 # hyperml
 Hyper simple and light weight XML/HTML builder using only the method `$()`.
 
+[![master](https://travis-ci.com/krizzdewizz/hyperml.svg?branch=master)](https://travis-ci.com/krizzdewizz/hyperml.svg?branch=master)
+
 ## Usage
 Create a subclass of `Xml` or `Html` and override the `create()` method:
 
