@@ -1,0 +1,37 @@
+package hyperml;
+
+import java.io.OutputStream;
+import java.io.Writer;
+
+import hyperml.base.HtmlBase;
+
+/**
+ * HTML Elements and attributes, css.
+ * 
+ * @author krizz
+ */
+public class Html extends HtmlBase<Html> {
+
+	public static Html of() {
+		return new Html();
+	}
+
+	public static Html of(Writer writer) {
+		return new Html(writer);
+	}
+
+	public static Html of(OutputStream out) {
+		return new Html(out);
+	}
+
+	public Html() {
+	}
+
+	public Html(Writer writer) {
+		super(writer);
+	}
+
+	public Html(OutputStream out) {
+		super(out);
+	}
+}
