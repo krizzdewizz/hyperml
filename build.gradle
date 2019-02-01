@@ -10,7 +10,7 @@ plugins {
 apply plugin: 'java-library'
 sourceCompatibility = 1.8
 
-version = '0.0.1'
+version = '1.0.0'
 
 project.ext.buildTimestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 def implementationVersion = "${version} (${project.ext.buildTimestamp})"
