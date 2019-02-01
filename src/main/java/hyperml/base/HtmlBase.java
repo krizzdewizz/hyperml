@@ -52,9 +52,8 @@ public abstract class HtmlBase<T extends HtmlBase<?>> extends HtmlCore<T> {
 		if (name == null) {
 			return true;
 		}
-		String lower = name.toString()
-				.toLowerCase();
-		return !lower.equals("script") && !lower.equals("style");
+		String nameString = name.toString();
+		return !nameString.equalsIgnoreCase("script") && !nameString.equalsIgnoreCase("style");
 	}
 
 	/**
@@ -201,7 +200,7 @@ public abstract class HtmlBase<T extends HtmlBase<?>> extends HtmlCore<T> {
 		}
 		for (int i = 0, n = pairs.length; i < n; i += 2) {
 			Boolean pred = (Boolean) pairs[i + 1];
-			if (pred) {
+			if (pred != null && pred.booleanValue()) {
 				if (sb.length() > 0) {
 					sb.append(' ');
 				}
@@ -236,13 +235,15 @@ public abstract class HtmlBase<T extends HtmlBase<?>> extends HtmlCore<T> {
 	public String styles(Map<String, ?> styleValuePairs) {
 		StringBuilder sb = new StringBuilder();
 		for (Entry<String, ?> entry : styleValuePairs.entrySet()) {
-			Object value = entry.getValue();
-			if (value != null && !value.toString()
-					.isEmpty()) {
-				if (sb.length() > 0) {
-					sb.append(';');
+			Object valueObj = entry.getValue();
+			if (valueObj != null) {
+				String value = valueObj.toString();
+				if (!value.isEmpty()) {
+					if (sb.length() > 0) {
+						sb.append(';');
+					}
+					appendStyle(entry.getKey(), value, sb);
 				}
-				appendStyle(entry.getKey(), value, sb);
 			}
 		}
 		return sb.toString();
@@ -288,19 +289,21 @@ public abstract class HtmlBase<T extends HtmlBase<?>> extends HtmlCore<T> {
 
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0, n = pairs.length; i < n; i += 2) {
-			Object val = pairs[i + 1];
-			if (val != null && !val.toString()
-					.isEmpty()) {
-				if (sb.length() > 0) {
-					sb.append(';');
+			Object valueObj = pairs[i + 1];
+			if (valueObj != null) {
+				String val = valueObj.toString();
+				if (!val.isEmpty()) {
+					if (sb.length() > 0) {
+						sb.append(';');
+					}
+					appendStyle((String) pairs[i], val, sb);
 				}
-				appendStyle((String) pairs[i], val, sb);
 			}
 		}
 		return sb.toString();
 	}
 
-	private void appendStyle(String style, Object value, StringBuilder target) {
+	private void appendStyle(String style, String value, StringBuilder target) {
 		int pos = style.lastIndexOf('.');
 		String unit;
 		if (pos < 0) {

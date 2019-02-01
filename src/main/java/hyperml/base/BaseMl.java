@@ -1,6 +1,7 @@
 package hyperml.base;
 
 import static hyperml.base.Util.escapeHtmlXml;
+import static hyperml.base.Util.flatten;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
 
@@ -208,6 +209,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	public String toString() {
 		if (written) {
 			// fluent mode
+			checkStack();
 			return writer.toString();
 		}
 		StringWriter sw = new StringWriter();
@@ -232,25 +234,27 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 			return;
 		}
 
-		throw new HyperMlException("Missing call to $(). Names left on stack: '%s'.", stack.stream()
+		throw new HyperMlException("Missing end element call $(). Names left on stack: '%s'.", stack.stream()
 				.map(Object::toString)
 				.collect(joining(", ")));
 	}
 
 	/**
-	 * Outputs the given text using a <code>character()</code> call.
+	 * Outputs the given text.
 	 * 
 	 * @param texts The text to output. The last item may be {@link #$}, in which
 	 *              case the element is ended.
 	 */
 	public T text(Object... texts) {
 		int nTexts = texts.length;
-		boolean hasEnd = nTexts > 0 && texts[nTexts - 1] == $;
+		if (nTexts == 0) {
+			return _this();
+		}
+		boolean hasEnd = texts[nTexts - 1] == $;
 		boolean escapeText = escapeText();
 		for (int i = 0, n = hasEnd ? nTexts - 1 : nTexts; i < n; i++) {
 			Object text = texts[i];
-			if (text != null && !text.toString()
-					.isEmpty()) {
+			if (text != null) {
 				_text(text.toString(), escapeText);
 			}
 		}
@@ -281,10 +285,11 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	protected T _$(Object nameOrClass, Object... params) {
+		Object[] flatParams = flatten(params);
 		ParamsHandler<Object> paramsHandler = getParamsHandler();
-		ParamInfo<?> paramInfo = paramsHandler.init(nameOrClass, params);
+		ParamInfo<?> paramInfo = paramsHandler.init(nameOrClass, flatParams);
 		String name = paramInfo == null ? nameOrClass.toString() : paramInfo.elementName;
-		Object[] theParams = paramInfo == null ? params : paramInfo.params;
+		Object[] theParams = paramInfo == null ? flatParams : paramInfo.params;
 
 		int nParams = theParams.length;
 		boolean endElement = nParams > 0 && theParams[nParams - 1] == $;
@@ -316,8 +321,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 				}
 				for (int i = 0; i < nParams; i += 2) {
 					Object attrValue = theParams[i + 1];
-					if (attrValue != null && !attrValue.toString()
-							.isEmpty()) {
+					if (attrValue != null) {
 						String attrName = attrName(theParams[i]);
 						if (paramInfo == null || !paramsHandler.applyAttribute(paramInfo.obj, attrName, attrValue)) {
 							_attribute(attrName, attrValue.toString());
@@ -411,6 +415,9 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	protected void _attribute(String name, String value) {
+		if (value.isEmpty()) {
+			return;
+		}
 		_write(" ");
 		_write(name);
 		_write("=\"");
@@ -425,6 +432,9 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	protected void _text(String text, boolean escape) {
+		if (text.isEmpty()) {
+			return;
+		}
 		_write(escape ? escapeHtmlXml(text) : text);
 	}
 

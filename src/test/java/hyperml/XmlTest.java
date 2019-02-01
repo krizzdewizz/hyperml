@@ -13,6 +13,7 @@ import hyperml.base.BaseMl;
  */
 public class XmlTest extends AbstractXmlTest {
 
+	@Test
 	public void testSingleDocElem() throws Exception {
 		Xml xml = new Xml() {
 			@Override
@@ -276,7 +277,7 @@ public class XmlTest extends AbstractXmlTest {
 		};
 
 		expectedEx.expect(HyperMlException.class);
-		expectedEx.expectMessage(containsString("Missing call"));
+		expectedEx.expectMessage(containsString("Missing end element call"));
 
 		xml.toString();
 	}

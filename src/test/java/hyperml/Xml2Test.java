@@ -2,6 +2,7 @@ package hyperml;
 
 import static hyperml.base.BaseMl.$;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
@@ -68,5 +69,14 @@ public class Xml2Test extends AbstractXmlTest {
 				.$("content", "֍", $)
 				.$();
 		assertThat(out.toByteArray()).isEqualTo("<xml><content>֍</content></xml>".getBytes());
+	}
+
+	@Test
+	public void testMissingEnd() throws Exception {
+		expectedEx.expect(HyperMlException.class);
+		expectedEx.expectMessage(containsString("Missing end element call"));
+		Xml.of()
+				.$("xml")
+				.toString();
 	}
 }
