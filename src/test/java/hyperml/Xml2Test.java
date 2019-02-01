@@ -54,7 +54,7 @@ public class Xml2Test extends AbstractXmlTest {
 	@Test
 	public void fluentWriter() throws Exception {
 		StringWriter sw = new StringWriter();
-		Xml.of(sw)
+		Xml.to(sw)
 				.$("xml")
 				.$("content", $)
 				.$();
@@ -64,7 +64,7 @@ public class Xml2Test extends AbstractXmlTest {
 	@Test
 	public void fluentOutputStream() throws Exception {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		Xml.of(out)
+		Xml.to(out)
 				.$("xml")
 				.$("content", "֍", $)
 				.$();

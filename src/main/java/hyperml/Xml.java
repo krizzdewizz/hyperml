@@ -44,11 +44,11 @@ public class Xml extends XmlBase<Xml> {
 		return new Xml();
 	}
 
-	public static Xml of(Writer writer) {
+	public static Xml to(Writer writer) {
 		return new Xml(writer);
 	}
 
-	public static Xml of(OutputStream out) {
+	public static Xml to(OutputStream out) {
 		return new Xml(out);
 	}
 

@@ -240,18 +240,31 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	/**
+	 * Outputs the given text raw/unescaped.
+	 * 
+	 * @param texts The text to output. The last item may be {@link #$}, in which
+	 *              case the element is ended.
+	 */
+	public T raw(Object... texts) {
+		return textInternal(texts, false);
+	}
+
+	/**
 	 * Outputs the given text.
 	 * 
 	 * @param texts The text to output. The last item may be {@link #$}, in which
 	 *              case the element is ended.
 	 */
 	public T text(Object... texts) {
+		return textInternal(texts, escapeText());
+	}
+
+	protected T textInternal(Object[] texts, boolean escapeText) {
 		int nTexts = texts.length;
 		if (nTexts == 0) {
 			return _this();
 		}
 		boolean hasEnd = texts[nTexts - 1] == $;
-		boolean escapeText = escapeText();
 		for (int i = 0, n = hasEnd ? nTexts - 1 : nTexts; i < n; i++) {
 			Object text = texts[i];
 			if (text != null) {
