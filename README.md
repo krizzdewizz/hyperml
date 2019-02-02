@@ -1,15 +1,20 @@
 # hyperml
-Hyper simple and light weight XML/HTML builder using only the method `$()`.
+Hyper simple and light weight XML/HTML builder for the JVM.
 
 [![master](https://travis-ci.com/krizzdewizz/hyperml.svg?branch=master)](https://travis-ci.com/krizzdewizz/hyperml.svg?branch=master)
 
 ## Usage
+
+Build XML/HTML in either document mode (preferred), or in ad-hoc/fluent mode.
+
+A document is created once and can be build many times.
+
 Create a subclass of `Xml` or `Html` and override the `create()` method:
 
 ```java
 Xml xml = new Xml() {
     protected void create() {
-        
+
         $("html");
         {
             $("body", "onload", "doThings()");                // attribute name-value pairs
@@ -19,37 +24,38 @@ Xml xml = new Xml() {
             $(); // body                                      // no parameters --> end element
         }
         $(); // html
-        
+
     }
 };
 
 ```
+Build the XML to a string:
+```
+System.out.println(xml.toString());
+```
 
-Build the XML by transforming it to a `Writer`:
+or to a `Writer`:
 ```java
 StringWriter out = new StringWriter();
 xml.build(out);
 System.out.println(out);
 ```
 
+or to an `OutputStream`:
+```java
+xml.build(System.out);
+```
+
 will produce:
 ```html
 <html>
-    <body onload="doThings()">
-        <h1 class="title">hello world</h1>
-    </body>
+	<body onload="doThings()">
+		<h1 class="title">hello world</h1>
+	</body>
 </html>
 ```
 
-Other build destinations are `OutputStream` and the generic `ContentHandler`.
-
-No DOM or whatsoever is created. `$` calls translate directly to SAX `ContentHandler` `startElement` / `endElement` calls.
-
-Though nesting the `$` calls with empty braces seems like one forgot an `if` or so, it is recommended for better readability.
-
-End-element calls (`$` with no parameters) do not need the element name, as this is handled by `Xml`. 
-A runtime error will occur upon start/end call mismatch. For better maintenance, it is recommended to comment the end element call though.
-
+No DOM or whatsoever is created. `$` calls emit directly to the output destination.
 
 ## HTML support
 For easier building of HTML output, subclass `Html` instead:
@@ -85,15 +91,251 @@ Html html = new Html() {
 will produce:
 ```html
 <html>
-    <style>.title{color:red;}</style>
-    <script>function doThings() { alert('done'); }</script>
-    <body onload="doThings()">
-        <h1 class="title">hello world</h1>
-    </body>
+	<style>.title{color:red;}</style>
+	<script>function doThings() { alert('done'); }</script>
+	<body onload="doThings()">
+		<h1 class="title">hello world</h1>
+	</body>
 </html>
 ```
 
-`Html` provides a method for each known HTML element and a constant for each known HTML attribute. You can freely mix it with generic `$` calls.
+`Html` provides a method for each known HTML element and a constant for each known HTML attribute. This reduces string usage and you can leverage your editor's code completion to write the markup.
+
+You can freely mix it with generic `$` calls.
+
+### ad-hoc/fluent mode
+
+For an ad-hoc document, you start from the `of` or `to` static methods instead of subclassing:
+
+Build to string:
+```java
+String html = Html.of()
+    .html()
+        .body()
+            .text("hello")
+        .$()
+    .$()
+    .toString();
+```
+
+to a `Writer`
+
+```java
+import static hyperml.Html.$; // end-element shortcut
+
+StringWriter writer = new StringWriter();
+Html.to(writer)
+    .html()
+        .body("hello", $)
+    .$();
+
+String html = writer.toString();
+```
+
+will produce:
+```html
+<html><body>hello</body></html>
+```
+
+An ad-hoc markup is supposed to be used only once.
+
+Document mode is favored over ad-hoc because:
+- they are reusable
+- with the structuring blocks `{}`, the code formatter can be used to have well nested code, whereas with ad-hoc, you must format yourself.
+
+With a small overhead of anonymous subclasses, you can have markup quickly also in document mode:
+
+```java
+String html = new Html() {
+    protected void create() {
+        html();
+        {
+            body("hello", $);
+        }
+        $();
+    }
+}.toString();
+```
+
+## Documentation
+
+The central piece is the `$()` method used to start/end an element.
+
+Start an element with `$(Object elementName, Object... params)` and end an element with the parameterless `$()` overload.
+
+### Start element
+
+`$(Object elementName, Object... params)` takes an element name and an optional array of objects for the content of the element.
+
+`params` are interpreted as attribute name/value pairs:
+```java
+$("div", "title", "hello", "class", "col-xs");
+{
+}
+$();
+
+// <div title="hello" class="col-xs"></div>
+```
+
+If the number of params is odd, the last one is used for the text content of the element:
+```java
+$("div", "title", "hello", "class", "col-xs", "world");
+{
+}
+$();
+
+// <div title="hello" class="col-xs">world</div>
+```
+
+If the last param is the `$` constant, the element is ended with a call to `$()`:
+```java
+$("div", "title", "hello", "class", "col-xs", "world", $);
+
+// <div title="hello" class="col-xs">world</div>
+```
+
+An attribute value/text can be any object:
+```java
+$("div", "id", 1, "date", LocalDate.now(), $);
+
+// <div id="1" date="2019-02-02"></div>
+```
+
+if the value is `null` or empty, the attribute is not written:
+```java
+$("a", "title", null, $);
+
+// <a></a>
+```
+
+`params` can contain structural items Array, `Iterable`, `Map` and `Stream`. These are merged into a flat array:
+```java
+List<Object> firstAttr = Arrays.asList("id", 1);
+List<Object> moreAttrs = Arrays.asList("class", "col-xs", "href", "/");
+Map<String, Object> evenMoreAttrs = new HashMap<>();
+evenMoreAttrs.put("title", "hello");
+
+$("a", firstAttr, moreAttrs, evenMoreAttrs, $);
+
+// <a id="1" class="col-xs" href="/" title="hello"></a>
+```
+
+Instances of `Map.Entry` are treated as an attribute name/value pair.
+
+### End element
+To end an element, use the parameterless `$()` overload. The element name must not be specified, as hyperml keeps track of them using a stack. It is adviced to comment the name, especially for deeply nested documents.
+```java
+div();
+{
+    span($);
+}
+$(); // div
+```
+
+When the document is build, a runtime check is made to detect proper balancing of start/end calls. A runtime exception is thrown if unbalanced:
+```java
+Html.of().div().span("hello", $).toString();
+
+// hyperml.HyperMlException: Missing end element call $(). Names left on stack: 'div'.
+```
+
+### Text
+
+Output (escaped) text using the `text(Object...)` method:
+```java
+String name = "peter";
+int age = 23;
+
+div();
+{
+    text("name: ", name, ", age: ", age);
+}
+$();
+
+// <div>name: peter, age: 23</div>
+```
+
+Text inside `script` and `style` elements is not escaped.
+
+`raw(Object...)` outputs unescaped text:
+```java
+raw("let x = 1 > 2;");
+
+// let x = 1 > 2;
+```
+
+The end-element shortcut `$` can be used:
+```java
+div().text("name: ", name, ", age: ", age, $);
+```
+
+### HTML
+`Html` provides a method for each known HTML element and a constant for each known HTML attribute. This reduces string usage and you can leverage your editor's code completion to write the markup.
+
+`Html` provides special support for the `class` and `style` attributes, to have the class/style list managed dynamically.
+
+`classes()` takes class/boolean pairs. The class is added to the list if the boolean value evaluates to `true`:
+
+```java
+span(classs, classes("col-xs", true, "dark", false), $);
+
+// <span class="col-xs"></span>
+```
+
+`styles()` takes style/value pairs. The style is added to the list if the value is non-null/non-empty:
+
+```java
+span(style, styles(border, "none", display, null), $);
+
+// <span style="border:none"></span>
+```
+
+You can pass in a `Map`:
+```java
+Map<String, Object> moreStyles = new HashMap<>();
+moreStyles.put(backgroundColor, "red");
+
+span(style, styles(border, "none", moreStyles), $);
+
+// <span style="border:none;background-color:red"></span>
+```
+
+### CSS
+
+`Html` provides the `css(Object...)` method to output CSS style declarations:
+```java
+style();
+{
+    css("body");
+    {
+        $(backgroundColor, "red");
+    }
+    $(); // css
+}
+$(); // style
+
+// <style>body{background-color:red;}</style>
+```
+
+`css()` enters CSS mode and the `$(Object, Object...)` method treats all parameters as style property/value pairs. End CSS mode with `$()`.
+
+You can write a declaration without a block by specifing property/value pairs. No end call needed.
+```java
+style();
+{
+    css("body", backgroundColor, "red", border, "none");
+}
+$(); // style
+
+// <style>body{background-color:red;border:none;}</style>
+```
+
+If a value's successor is a `Unit`, it is merged with the value:
+```java
+css(".col-xs", height, 10, px, width, 2, rem);
+
+// .col-xs{height:10px;width:2rem;}
+```
 
 ## Distribution
 

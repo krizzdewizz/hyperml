@@ -134,7 +134,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	protected interface ParamsHandler<T> {
-		ParamInfo<T> init(Object nameOrClass, Object... params);
+		ParamInfo<T> init(Object elementName, Object... params);
 
 		boolean applyAttribute(T obj, String name, Object value);
 
@@ -148,7 +148,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	private static final ParamsHandler<Object> NULL_HANDLER = new ParamsHandler<Object>() {
 
 		@Override
-		public ParamInfo<Object> init(Object nameOrClass, Object... params) {
+		public ParamInfo<Object> init(Object elementName, Object... params) {
 			return null;
 		}
 
@@ -205,6 +205,18 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 		}
 	}
 
+	/**
+	 * Builds the xml by transforming it to the given output stream using UTF-8
+	 * encoding.
+	 * <p>
+	 * May be called several times.
+	 * 
+	 * @param out destination
+	 */
+	public void build(OutputStream out) {
+		build(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+	}
+
 	@Override
 	public String toString() {
 		if (written) {
@@ -234,7 +246,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 			return;
 		}
 
-		throw new HyperMlException("Missing end element call $(). Names left on stack: '%s'.", stack.stream()
+		throw new HyperMlException("Missing end element call $(). Names left on stack: '%s'", stack.stream()
 				.map(Object::toString)
 				.collect(joining(", ")));
 	}
@@ -279,7 +291,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	 * is <code>$</code>, will call {@link #$(Object, Object...)} w/o parameters,
 	 * just after starting the element (auto-end).
 	 * 
-	 * @param nameOrClass The name of the element or a component {@link Class}
+	 * @param elementName The name of the element or a component {@link Class}
 	 * @param params      attribute [name, value] pairs, optionally followed by a
 	 *                    single value.If the last argument is <code>$</code>, will
 	 *                    call {@link #$(Object, Object...)} w/o parameters, just
@@ -288,8 +300,8 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	 *                    for the element. May be empty. An attribute name may be
 	 *                    namespace-prefixed.
 	 */
-	public T $(Object nameOrClass, Object... params) {
-		return _$(nameOrClass, params);
+	public T $(Object elementName, Object... params) {
+		return _$(elementName, params);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -297,11 +309,11 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 		return (ParamsHandler<P>) NULL_HANDLER;
 	}
 
-	protected T _$(Object nameOrClass, Object... params) {
+	protected T _$(Object elementName, Object... params) {
 		Object[] flatParams = flatten(params);
 		ParamsHandler<Object> paramsHandler = getParamsHandler();
-		ParamInfo<?> paramInfo = paramsHandler.init(nameOrClass, flatParams);
-		String name = paramInfo == null ? nameOrClass.toString() : paramInfo.elementName;
+		ParamInfo<?> paramInfo = paramsHandler.init(elementName, flatParams);
+		String name = paramInfo == null ? elementName.toString() : paramInfo.elementName;
 		Object[] theParams = paramInfo == null ? flatParams : paramInfo.params;
 
 		int nParams = theParams.length;
@@ -390,7 +402,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	 */
 	public T $() {
 		if (stack.isEmpty()) {
-			throw new HyperMlException("Too many calls to $().");
+			throw new HyperMlException("Too many calls to $()");
 		}
 		Object name = stack.removeLast();
 		if (name instanceof ParamInfo) {
