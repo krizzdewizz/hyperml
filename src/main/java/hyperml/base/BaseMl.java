@@ -186,6 +186,14 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 
 	protected abstract boolean escapeText();
 
+	protected boolean writeAttribute(@SuppressWarnings("unused") Object value) {
+		return true;
+	}
+
+	protected boolean writeAttributeValue(@SuppressWarnings("unused") Object value) {
+		return true;
+	}
+
 	/**
 	 * Builds the xml by transforming it to the given writer.
 	 * <p>
@@ -439,14 +447,16 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	protected void _attribute(String name, String value) {
-		if (value.isEmpty()) {
+		if (value.isEmpty() || !writeAttribute(value)) {
 			return;
 		}
 		_write(" ");
 		_write(name);
-		_write("=\"");
-		_write(escapeHtmlXml(value));
-		_write("\"");
+		if (writeAttributeValue(value)) {
+			_write("=\"");
+			_write(escapeHtmlXml(value));
+			_write("\"");
+		}
 	}
 
 	protected void _endElement(String name) {

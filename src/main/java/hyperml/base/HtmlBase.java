@@ -44,6 +44,16 @@ public abstract class HtmlBase<T extends HtmlBase<?>> extends HtmlCore<T> {
 	}
 
 	@Override
+	protected boolean writeAttribute(Object value) {
+		return !"false".equals(value);
+	}
+
+	@Override
+	protected boolean writeAttributeValue(Object value) {
+		return !"true".equals(value);
+	}
+
+	@Override
 	protected boolean escapeText() {
 		if (inCss) {
 			return false;

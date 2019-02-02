@@ -9,10 +9,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import hyperml.AbstractXmlTest;
-import hyperml.Html;
-import hyperml.HyperMlException;
-
 /**
  * @author krizz
  */
@@ -327,7 +323,7 @@ public class HtmlTest extends AbstractXmlTest {
 				css("body");
 				{
 					$(color, "red");
-					$(backgroundColor, "cyan", disabled, falsee);
+					$(backgroundColor, "cyan", disabled, false);
 					$(width, 1, percent);
 				}
 				$();
@@ -361,4 +357,20 @@ public class HtmlTest extends AbstractXmlTest {
 
 		xml.toString();
 	}
+
+	@Test
+	public void testVoidAttribute() throws Exception {
+		Html ml = new Html() {
+			@Override
+			protected void create() {
+				input(readonly, true);
+				input(readonly, "false");
+				input(readonly, "off");
+			}
+		};
+
+		String result = ml.toString();
+		assertEquals("<input readonly><input><input readonly=\"off\">", result);
+	}
+
 }

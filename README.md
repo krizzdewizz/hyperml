@@ -199,11 +199,18 @@ $("div", "id", 1, "date", LocalDate.now(), $);
 // <div id="1" date="2019-02-02"></div>
 ```
 
-if the value is `null` or empty, the attribute is not written:
+if the value is `null`, empty or `"false"`, the attribute is not written:
 ```java
-$("a", "title", null, $);
+$("a", "title", null, id, "", href, false, $);
 
 // <a></a>
+```
+
+if the value is `"true"`, the attribute is written without a value:
+```java
+$("input", readonly, true);
+
+// <input readonly>
 ```
 
 `params` can contain structural items Array, `Iterable`, `Map` and `Stream`. These are merged into a flat array:

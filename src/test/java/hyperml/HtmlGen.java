@@ -2,6 +2,7 @@ package hyperml;
 
 import static java.util.Arrays.asList;
 
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import hyperml.base.HtmlCore;
 import hyperml.util.CodeBuilder;
-
 
 public class HtmlGen {
 
-	private static final Set<String> KEYWORDS = new HashSet<>(asList("class", "true", "false", "default", "for", "void", "char", "continue", "float", "map"));
+	public static final Set<String> KEYWORDS = new HashSet<>(asList("class", "true", "false", "default", "for", "void", "char", "continue", "float", "map"));
 	private static final String[] UNITS = new String[] { "em", "ex", "percent", "px", "cm", "mm", "in", "pt", "pc", "ch", "rem", "vh", "vwv", "vmin", "vmax" };
 
 	static class Item implements Comparable<Item> {
@@ -212,6 +213,31 @@ public class HtmlGen {
 	}
 
 	private static boolean exclude(String name) {
-		return name.isEmpty() || name.equals("1") || name.equalsIgnoreCase("a") || name.equalsIgnoreCase("i") || name.contains("*");
+		return name.isEmpty() || name.equals("1") || name.equalsIgnoreCase("a") || name.equalsIgnoreCase("i") || name.contains("*") || name.equals("false") || name.equals("true");
+	}
+
+	/////
+
+	public void gennn() throws Exception {
+		StringBuilder sb = new StringBuilder();
+		for (Field f : HtmlCore.class.getFields()) {
+			String name = f.getName();
+			if (name.equals("$")) {
+				continue;
+			}
+			if (sb.length() == 0) {
+				sb.append("{");
+			} else {
+				sb.append(",\n");
+			}
+			if (HtmlGen.KEYWORDS.contains(name)) {
+				name = name.substring(0, name.length() - 1);
+			}
+			sb.append("'" + f.get(null) + "': " + "'" + name + "'");
+		}
+
+		sb.append("}");
+
+		System.out.println(sb);
 	}
 }
