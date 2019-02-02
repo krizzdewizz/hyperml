@@ -84,13 +84,14 @@ let main;
                 }
 
                 if (!skipNext) {
+                    const voidEl = VOID_ELEMENTS[name];
                     let end = '';
-                    if (noChildElements(node)) {
+                    if (!voidEl && noChildElements(node)) {
                         end = pairsString ? ', $' : '$';
                         skipNext = true;
                     }
                     print(`${name}(${pairsString}${end});\n`);
-                    if (VOID_ELEMENTS[name] || end) {
+                    if (voidEl || end) {
                         skipNext = true;
                     } else {
                         print(`{\n`);
