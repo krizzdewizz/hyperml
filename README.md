@@ -276,7 +276,7 @@ $("span", "class", "col-xs", $);
 ```
 can be written using `Html`:
 ```java
-span("class", "col-xs", $);
+span(classs, "col-xs", $);
 ```
 
 `Html` provides special support for the `class` and `style` list attributes.
