@@ -351,6 +351,10 @@ css(".col-xs", height, 10, px, width, 2, rem);
 // .col-xs{height:10px;width:2rem;}
 ```
 
+## Generator
+
+Use the [hyperml generator](https://krizzdewizz.github.io/hyperml) to generate hyperml Java code from existing HTML.
+
 ## Distribution
 
 You can download the binaries from [here](https://github.com/krizzdewizz/hyperml/releases) or via jitpack.io:
