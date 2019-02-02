@@ -37,6 +37,23 @@
             flex: 1;
             background-color: #f4f4f4;
         }
+
+        .output-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .output-bar span {
+            flex: 1;
+        }
+
+        .output-bar button {
+            color: gray;
+            font-size: smaller;
+            padding: 0;
+            margin-bottom: .5rem;
+            background-color: inherit;
+        }
     </style>
 
 </head>
@@ -53,9 +70,12 @@
 
         <br>
 
-        <label>Output</label>
+        <div class="output-bar">
+            <label>Output</label>
+            <span></span>
+            <button id="copyButton" title="Copy to clipboard" class="btn" data-clipboard-target="#output">Copy</button>
+        </div>
         <textarea id="output" class=" form-control" readonly></textarea>
-
     </div>
 
     <script src="main.js"></script>
@@ -95,9 +115,15 @@
         //             html.value = `<a href="/x">
         //   <b></b>
         // </a>`
+
         main.generate();
+
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script>
+        new ClipboardJS('#copyButton');
+    </script>
 </body>
 
 </html>
