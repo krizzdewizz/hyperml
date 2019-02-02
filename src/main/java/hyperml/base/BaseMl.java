@@ -175,8 +175,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 	}
 
 	/**
-	 * Stack of element names started so far. Using <code>LinkedList</code> instead
-	 * of <code>Stack</code> because synch is not needed.
+	 * Stack of element names started so far.
 	 */
 	protected final LinkedList<Object> stack = new LinkedList<>();
 
