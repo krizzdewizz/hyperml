@@ -97,7 +97,7 @@ will produce:
 </html>
 ```
 
-`Html` provides a method for each known HTML element and a constant for frequently used HTML attributes. This reduces string usage and you can leverage your editor's code completion to write the markup.
+`Html` provides a method for frequently used HTML element and constants for HTML/CSS attributes. This reduces string usage and you can leverage your editor's code completion to write the markup.
 
 You can freely mix it with generic `$` calls.
 
@@ -275,7 +275,7 @@ raw("let x = 1 > 2;");
 ```
 
 ### HTML
-`Html` provides a method for each known HTML element and a constant for frequently used HTML/CSS attributes. This reduces string usage and you can leverage your editor's code completion to write the markup.
+`Html` provides a method for frequently used HTML elements and constants for HTML/CSS attributes. This reduces string usage and you can leverage your editor's code completion to write the markup.
 
 This `Xml`:
 ```java
@@ -283,7 +283,7 @@ $("span", "class", "col-xs", $);
 ```
 can be written using `Html`:
 ```java
-span("class", "col-xs", $);
+span(classs, "col-xs", $);
 ```
 
 `Html` provides special support for the `class` and `style` list attributes.
