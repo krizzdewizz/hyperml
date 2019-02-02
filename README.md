@@ -5,11 +5,9 @@ Hyper simple and light weight XML/HTML builder for the JVM.
 
 ## Usage
 
-Build XML/HTML in either document mode (preferred), or in ad-hoc/fluent mode.
+Build XML/HTML in either document or ad-hoc/fluent mode.
 
-A document is created once and can be build many times.
-
-Create a subclass of `Xml` or `Html` and override the `create()` method:
+The recommended way is to create a document by subclassing `Xml` or `Html` and overriding the `create()` method:
 
 ```java
 Xml xml = new Xml() {
@@ -57,7 +55,7 @@ will produce:
 
 No DOM or whatsoever is created. `$` calls emit directly to the output destination.
 
-## HTML support
+## HTML
 For easier building of HTML output, subclass `Html` instead:
 
 ```java
@@ -99,7 +97,7 @@ will produce:
 </html>
 ```
 
-`Html` provides a method for each known HTML element and a constant for each known HTML attribute. This reduces string usage and you can leverage your editor's code completion to write the markup.
+`Html` provides a method for each known HTML element and a constant for frequently used HTML attributes. This reduces string usage and you can leverage your editor's code completion to write the markup.
 
 You can freely mix it with generic `$` calls.
 
@@ -255,6 +253,11 @@ $();
 // <div>name: peter, age: 23</div>
 ```
 
+The end-element shortcut `$` can be used:
+```java
+div().text("name: ", name, ", age: ", age, $);
+```
+
 Text inside `script` and `style` elements is not escaped.
 
 `raw(Object...)` outputs unescaped text:
@@ -264,15 +267,19 @@ raw("let x = 1 > 2;");
 // let x = 1 > 2;
 ```
 
-The end-element shortcut `$` can be used:
+### HTML
+`Html` provides a method for each known HTML element and a constant for frequently used HTML/CSS attributes. This reduces string usage and you can leverage your editor's code completion to write the markup.
+
+This `Xml`:
 ```java
-div().text("name: ", name, ", age: ", age, $);
+$("span", "class", "col-xs", $);
+```
+can be written using `Html`:
+```java
+span("class", "col-xs", $);
 ```
 
-### HTML
-`Html` provides a method for each known HTML element and a constant for each known HTML attribute. This reduces string usage and you can leverage your editor's code completion to write the markup.
-
-`Html` provides special support for the `class` and `style` attributes, to have the class/style list managed dynamically.
+`Html` provides special support for the `class` and `style` list attributes.
 
 `classes()` takes class/boolean pairs. The class is added to the list if the boolean value evaluates to `true`:
 
@@ -285,7 +292,7 @@ span(classs, classes("col-xs", true, "dark", false), $);
 `styles()` takes style/value pairs. The style is added to the list if the value is non-null/non-empty:
 
 ```java
-span(style, styles(border, "none", display, null), $);
+span(style, styles(border, none, display, null), $);
 
 // <span style="border:none"></span>
 ```
@@ -295,7 +302,7 @@ You can pass in a `Map`:
 Map<String, Object> moreStyles = new HashMap<>();
 moreStyles.put(backgroundColor, "red");
 
-span(style, styles(border, "none", moreStyles), $);
+span(style, styles(border, none, moreStyles), $);
 
 // <span style="border:none;background-color:red"></span>
 ```
@@ -323,7 +330,7 @@ You can write a declaration without a block by specifing property/value pairs. N
 ```java
 style();
 {
-    css("body", backgroundColor, "red", border, "none");
+    css("body", backgroundColor, "red", border, none);
 }
 $(); // style
 
