@@ -30,7 +30,7 @@ let main;
         if (!Number.isNaN(num)) {
             return num;
         }
-        s = s
+        s = s.replace(/\\/g, '\\\\')
             .replace(/\n/g, '\\n')
             .replace(/"/g, '\\"');
         return `"${s}"`;
