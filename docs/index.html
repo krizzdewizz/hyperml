@@ -35,6 +35,7 @@
 
         #output {
             flex: 1;
+            background-color: #f4f4f4;
         }
     </style>
 
@@ -46,21 +47,14 @@
 
         <h1>hyperml generator</h1>
 
-        <form>
-            <div class="form-group">
-                <label>HTML</label>
-                <textarea onkeyup="main.generate()" id="html" rows="13" autofocus autocomplete="off" autocorrect="off"
-                    autocapitalize="off" spellcheck="false" class="todo-text form-control">
-                    </textarea>
-            </div>
-            <button class="btn btn-primary" onclick="main.generate();event.preventDefault()">Generate</button>
-        </form>
+        <label>HTML</label>
+        <textarea onkeyup="main.generate()" id="html" rows="13" autofocus autocomplete="off" autocorrect="off"
+            autocapitalize="off" spellcheck="false" class="todo-text form-control"></textarea>
 
         <br>
 
         <label>Output</label>
-        <textarea id="output" class=" form-control" readonly>
-            </textarea>
+        <textarea id="output" class=" form-control" readonly></textarea>
 
     </div>
 

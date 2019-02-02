@@ -2,6 +2,9 @@ let main;
 
 (function (main) {
 
+    const ELEMENT_NODE = 1;
+    const TEXT_NODE = 3;
+
     function acceptChildren(node, visitor) {
         node.childNodes.forEach(child => accept(child, visitor));
     }
@@ -15,7 +18,7 @@ let main;
     function noChildElements(node) {
         let result = true;
         node.childNodes.forEach(child => {
-            if (child.nodeType === 1) {
+            if (child.nodeType === ELEMENT_NODE) {
                 result = false;
             }
         });
@@ -35,21 +38,24 @@ let main;
 
     function textOnlyChild(node) {
         const children = node.childNodes;
-        return children.length === 1 && children[0].nodeType === 3 ? children[0] : undefined;
+        if (children.length === 1 && children[0].nodeType === TEXT_NODE) {
+            return children[0].textContent.trim();
+        }
+        return undefined;
     }
 
     function nodeName(node) {
-        let name = node.nodeName.toLowerCase();
+        const name = node.nodeName.toLowerCase();
         return name.startsWith('xx') ? name.substring(2) : name;
     }
 
     function Visitor() {
-        this.buffer = '';
+        this.output = '';
 
         let depth = 0;
 
         const indent = () => '    '.repeat(depth);
-        const print = s => this.buffer += `${indent()}${s}`;
+        const print = s => this.output += `${indent()}${s}`;
 
         let skipNext = false;
 
@@ -57,27 +63,24 @@ let main;
             if (skipNext) {
                 return;
             }
-            if (node.nodeType === 1) {
+            if (node.nodeType === ELEMENT_NODE) {
                 const name = nodeName(node);
 
                 const pairs = [];
                 for (let i = 0, n = node.attributes.length; i < n; i++) {
                     const a = node.attributes[i];
                     const knownAttr = KNOWN_ATTRIBUTES[a.name];
-                    const pairName = knownAttr ? knownAttr : `"${a.name}"`;
-                    const value = a.value ? stringValue(a.value) : true;
-                    pairs.push(pairName, value);
+                    const attrName = knownAttr ? knownAttr : `"${a.name}"`;
+                    const attrValue = a.value ? stringValue(a.value) : true;
+                    pairs.push(attrName, attrValue);
                 }
 
                 const pairsString = pairs.join(', ');
 
                 const textOnly = textOnlyChild(node);
                 if (textOnly) {
-                    const text = textOnly.textContent.trim();
-                    if (text) {
-                        print(`${name}(${pairsString ? pairsString + ', ' : ''}${stringValue(text)}, $);\n`);
-                        skipNext = true;
-                    }
+                    print(`${name}(${pairsString ? pairsString + ', ' : ''}${stringValue(textOnly)}, $);\n`);
+                    skipNext = true;
                 }
 
                 if (!skipNext) {
@@ -95,7 +98,7 @@ let main;
                 }
                 depth++;
 
-            } else if (node.nodeType === 3) {
+            } else if (node.nodeType === TEXT_NODE) {
                 const text = node.textContent.trim();
                 if (text) {
                     print(`text(${stringValue(text)});\n`);
@@ -104,7 +107,7 @@ let main;
         };
 
         this.end = node => {
-            if (node.nodeType === 1) {
+            if (node.nodeType === ELEMENT_NODE) {
                 depth--;
                 if (skipNext) {
                     skipNext = false;
@@ -122,15 +125,14 @@ let main;
         const el = document.createElement('div');
         const html = htmlEl.value
             .replace(/<html/g, '<xxhtml')
-            .replace(/<\/html/g, '</xxhtml')
-            ;
+            .replace(/<\/html/g, '</xxhtml');
 
         el.innerHTML = html;
 
         const visitor = new Visitor();
         acceptChildren(el, visitor);
 
-        outEl.textContent = visitor.buffer;
+        outEl.textContent = visitor.output;
     };
 
     var KNOWN_ATTRIBUTES = {
