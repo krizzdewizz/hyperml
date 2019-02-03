@@ -4,6 +4,7 @@ let main;
 
     const ELEMENT_NODE = 1;
     const TEXT_NODE = 3;
+    const HTML_PREFIX = 'x__x';
 
     function acceptChildren(node, visitor) {
         node.childNodes.forEach(child => accept(child, visitor));
@@ -46,7 +47,11 @@ let main;
 
     function nodeName(node) {
         const name = node.nodeName.toLowerCase();
-        return name.startsWith('xx') ? name.substring(2) : name;
+        return name.startsWith(HTML_PREFIX) ? name.substring(HTML_PREFIX.length) : name;
+    }
+
+    function startMethod(name) {
+        return name.match(/(-|:|\.)/) ? `$("${name}", ` : `${name}(`;
     }
 
     function Visitor() {
@@ -69,9 +74,11 @@ let main;
                 const pairs = [];
                 for (let i = 0, n = node.attributes.length; i < n; i++) {
                     const a = node.attributes[i];
-                    const knownAttr = KNOWN_ATTRIBUTES[a.name];
-                    const attrName = knownAttr ? knownAttr : `"${a.name}"`;
-                    const attrValue = a.value ? stringValue(a.value) : true;
+                    const knownName = KNOWN_ATTRIBUTES[a.name];
+                    const attrName = knownName ? knownName : `"${a.name}"`;
+
+                    const knownValue = KNOWN_ATTRIBUTES[a.value];
+                    const attrValue = knownValue || (a.value ? stringValue(a.value) : true);
                     pairs.push(attrName, attrValue);
                 }
 
@@ -79,7 +86,7 @@ let main;
 
                 const textOnly = textOnlyChild(node);
                 if (textOnly) {
-                    print(`${name}(${pairsString ? pairsString + ', ' : ''}${stringValue(textOnly)}, $);\n`);
+                    print(`${startMethod(name)}${pairsString ? pairsString + ', ' : ''}${stringValue(textOnly)}, $);\n`);
                     skipNext = true;
                 }
 
@@ -90,7 +97,7 @@ let main;
                         end = pairsString ? ', $' : '$';
                         skipNext = true;
                     }
-                    print(`${name}(${pairsString}${end});\n`);
+                    print(`${startMethod(name)}${pairsString}${end});\n`);
                     if (voidEl || end) {
                         skipNext = true;
                     } else {
@@ -125,8 +132,8 @@ let main;
 
         const el = document.createElement('div');
         const html = htmlEl.value
-            .replace(/<html/g, '<xxhtml')
-            .replace(/<\/html/g, '</xxhtml');
+            .replace(/<html/g, `<${HTML_PREFIX}html`)
+            .replace(/<\/html/g, `</${HTML_PREFIX}html`);
 
         el.innerHTML = html;
 
