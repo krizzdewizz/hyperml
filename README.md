@@ -373,7 +373,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.krizzdewizz:hyperml:1.0.1")
+    implementation("com.github.krizzdewizz:hyperml:1.0.2")
 }
 ```
 
@@ -389,7 +389,7 @@ dependencies {
 <dependency>
     <groupId>com.github.krizzdewizz</groupId>
     <artifactId>hyperml</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 

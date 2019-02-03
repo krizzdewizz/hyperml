@@ -75,7 +75,7 @@ let main;
                 for (let i = 0, n = node.attributes.length; i < n; i++) {
                     const a = node.attributes[i];
                     const knownName = KNOWN_ATTRIBUTES[a.name];
-                    const attrName = knownName ? knownName : `"${a.name}"`;
+                    const attrName = knownName || `"${a.name}"`;
 
                     const knownValue = KNOWN_ATTRIBUTES[a.value];
                     const attrValue = knownValue || (a.value ? stringValue(a.value) : true);
