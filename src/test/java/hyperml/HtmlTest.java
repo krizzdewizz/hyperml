@@ -363,14 +363,14 @@ public class HtmlTest extends AbstractXmlTest {
 		Html ml = new Html() {
 			@Override
 			protected void create() {
-				input(readonly, true);
-				input(readonly, "false");
-				input(readonly, "off");
+				input(readonly, true, checked, "true");
+				input(readonly, false);
+				input(readonly, "off", checked, "false");
 			}
 		};
 
 		String result = ml.toString();
-		assertEquals("<input readonly><input><input readonly=\"off\">", result);
+		assertEquals("<input readonly checked=\"true\"><input><input readonly=\"off\" checked=\"false\">", result);
 	}
 
 }

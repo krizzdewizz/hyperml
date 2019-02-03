@@ -275,7 +275,6 @@ let main;
         'empty-cells': 'emptyCells',
         'enctype': 'enctype',
         'ex': 'ex',
-        'false': 'falsee',
         'file': 'file',
         'float': 'floatt',
         'flow': 'flow',
@@ -554,7 +553,6 @@ let main;
         'title': 'title',
         'toolbar': 'toolbar',
         'top': 'top',
-        'true': 'truee',
         'type': 'type',
         'unicode-bidi': 'unicodeBidi',
         'url': 'url',
@@ -588,5 +586,5 @@ let main;
         'z-index': 'zIndex'
     };
 
-    var VOID_ELEMENTS = { 'area': 1, 'base': 1, 'br': 1, 'col': 1, 'embed': 1, 'hr': 1, 'img': 1, 'input': 1, 'keygen': 1, 'link': 1, 'meta': 1, 'param': 1, 'source': 1, 'track': 1, 'wbr': 1 };
+    var VOID_ELEMENTS = { area: 1, base: 1, br: 1, col: 1, embed: 1, hr: 1, img: 1, input: 1, keygen: 1, link: 1, meta: 1, param: 1, source: 1, track: 1, wbr: 1 };
 })(main || (main = {}));

@@ -356,7 +356,7 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 					if (attrValue != null) {
 						String attrName = attrName(theParams[i]);
 						if (paramInfo == null || !paramsHandler.applyAttribute(paramInfo.obj, attrName, attrValue)) {
-							_attribute(attrName, attrValue.toString());
+							_attribute(attrName, attrValue);
 						}
 					}
 				}
@@ -446,13 +446,17 @@ public abstract class BaseMl<T extends BaseMl<?>> {
 		_write(">");
 	}
 
-	protected void _attribute(String name, String value) {
-		if (value.isEmpty() || !writeAttribute(value)) {
+	protected void _attribute(String name, Object valueObj) {
+		if (!writeAttribute(valueObj)) {
+			return;
+		}
+		String value = valueObj.toString();
+		if (value.isEmpty()) {
 			return;
 		}
 		_write(" ");
 		_write(name);
-		if (writeAttributeValue(value)) {
+		if (writeAttributeValue(valueObj)) {
 			_write("=\"");
 			_write(escapeHtmlXml(value));
 			_write("\"");

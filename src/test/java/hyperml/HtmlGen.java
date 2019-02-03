@@ -25,7 +25,7 @@ import hyperml.util.CodeBuilder;
 
 public class HtmlGen {
 
-	public static final Set<String> KEYWORDS = new HashSet<>(asList("class", "true", "false", "default", "for", "void", "char", "continue", "float", "map"));
+	public static final Set<String> KEYWORDS = new HashSet<>(asList("class", "default", "for", "void", "char", "continue", "float", "map"));
 	private static final String[] UNITS = new String[] { "em", "ex", "percent", "px", "cm", "mm", "in", "pt", "pc", "ch", "rem", "vh", "vwv", "vmin", "vmax" };
 
 	static class Item implements Comparable<Item> {
@@ -180,6 +180,11 @@ public class HtmlGen {
 		NodeList els = (NodeList) xPath.compile("//*[name() = 'xs:element']/@name")
 				.evaluate(xmlDocument, XPathConstants.NODESET);
 		addToSet("", els, allElements);
+		
+		allElements.add(new Item("element", "svg", ""));
+		allElements.add(new Item("element", "path", ""));
+		allElements.add(new Item("element", "main", ""));
+		allElements.add(new Item("element", "menuitem", ""));
 	}
 
 	private static Document parseXml(String resource) throws Exception {

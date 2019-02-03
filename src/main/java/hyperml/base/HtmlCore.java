@@ -19,7 +19,6 @@ public abstract class HtmlCore<T extends HtmlCore<?>> extends BaseMl<T> {
 	public HtmlCore(OutputStream out) {
 		super(out);
 	}
-
 	/**
 	 * The <code>_blank</code> enumeration.
 	 */
@@ -532,10 +531,6 @@ public abstract class HtmlCore<T extends HtmlCore<?>> extends BaseMl<T> {
 	 * The <code>ex</code> unit.
 	 */
 	public static final Unit ex = new Unit("ex");
-	/**
-	 * The <code>false</code> enumeration.
-	 */
-	public static final String falsee = "false";
 	/**
 	 * The <code>file</code> enumeration.
 	 */
@@ -1649,10 +1644,6 @@ public abstract class HtmlCore<T extends HtmlCore<?>> extends BaseMl<T> {
 	 */
 	public static final String top = "top";
 	/**
-	 * The <code>true</code> enumeration.
-	 */
-	public static final String truee = "true";
-	/**
 	 * The <code>type</code> attribute.
 	 */
 	public static final String type = "type";
@@ -1776,1003 +1767,809 @@ public abstract class HtmlCore<T extends HtmlCore<?>> extends BaseMl<T> {
 	 * The <code>z-index</code> css property.
 	 */
 	public static final String zIndex = "z-index";
-
 	/**
 	 * The <code>a</code> element.
-	 * 
 	 * @return this
 	 */
-	public T a(Object... params) {
-		return $("a", params);
+	public T a(Object...params) {
+	  return $("a", params);
 	}
-
 	/**
 	 * The <code>abbr</code> element.
-	 * 
 	 * @return this
 	 */
-	public T abbr(Object... params) {
-		return $("abbr", params);
+	public T abbr(Object...params) {
+	  return $("abbr", params);
 	}
-
 	/**
 	 * The <code>acronym</code> element.
-	 * 
 	 * @return this
 	 */
-	public T acronym(Object... params) {
-		return $("acronym", params);
+	public T acronym(Object...params) {
+	  return $("acronym", params);
 	}
-
 	/**
 	 * The <code>address</code> element.
-	 * 
 	 * @return this
 	 */
-	public T address(Object... params) {
-		return $("address", params);
+	public T address(Object...params) {
+	  return $("address", params);
 	}
-
 	/**
 	 * The <code>area</code> element.
-	 * 
 	 * @return this
 	 */
-	public T area(Object... params) {
-		return $("area", params);
+	public T area(Object...params) {
+	  return $("area", params);
 	}
-
 	/**
 	 * The <code>article</code> element.
-	 * 
 	 * @return this
 	 */
-	public T article(Object... params) {
-		return $("article", params);
+	public T article(Object...params) {
+	  return $("article", params);
 	}
-
 	/**
 	 * The <code>aside</code> element.
-	 * 
 	 * @return this
 	 */
-	public T aside(Object... params) {
-		return $("aside", params);
+	public T aside(Object...params) {
+	  return $("aside", params);
 	}
-
 	/**
 	 * The <code>audio</code> element.
-	 * 
 	 * @return this
 	 */
-	public T audio(Object... params) {
-		return $("audio", params);
+	public T audio(Object...params) {
+	  return $("audio", params);
 	}
-
 	/**
 	 * The <code>b</code> element.
-	 * 
 	 * @return this
 	 */
-	public T b(Object... params) {
-		return $("b", params);
+	public T b(Object...params) {
+	  return $("b", params);
 	}
-
 	/**
 	 * The <code>base</code> element.
-	 * 
 	 * @return this
 	 */
-	public T base(Object... params) {
-		return $("base", params);
+	public T base(Object...params) {
+	  return $("base", params);
 	}
-
 	/**
 	 * The <code>bdi</code> element.
-	 * 
 	 * @return this
 	 */
-	public T bdi(Object... params) {
-		return $("bdi", params);
+	public T bdi(Object...params) {
+	  return $("bdi", params);
 	}
-
 	/**
 	 * The <code>bdo</code> element.
-	 * 
 	 * @return this
 	 */
-	public T bdo(Object... params) {
-		return $("bdo", params);
+	public T bdo(Object...params) {
+	  return $("bdo", params);
 	}
-
 	/**
 	 * The <code>big</code> element.
-	 * 
 	 * @return this
 	 */
-	public T big(Object... params) {
-		return $("big", params);
+	public T big(Object...params) {
+	  return $("big", params);
 	}
-
 	/**
 	 * The <code>blockquote</code> element.
-	 * 
 	 * @return this
 	 */
-	public T blockquote(Object... params) {
-		return $("blockquote", params);
+	public T blockquote(Object...params) {
+	  return $("blockquote", params);
 	}
-
 	/**
 	 * The <code>body</code> element.
-	 * 
 	 * @return this
 	 */
-	public T body(Object... params) {
-		return $("body", params);
+	public T body(Object...params) {
+	  return $("body", params);
 	}
-
 	/**
 	 * The <code>br</code> element.
-	 * 
 	 * @return this
 	 */
-	public T br(Object... params) {
-		return $("br", params);
+	public T br(Object...params) {
+	  return $("br", params);
 	}
-
 	/**
 	 * The <code>button</code> element.
-	 * 
 	 * @return this
 	 */
-	public T button(Object... params) {
-		return $("button", params);
+	public T button(Object...params) {
+	  return $("button", params);
 	}
-
 	/**
 	 * The <code>canvas</code> element.
-	 * 
 	 * @return this
 	 */
-	public T canvas(Object... params) {
-		return $("canvas", params);
+	public T canvas(Object...params) {
+	  return $("canvas", params);
 	}
-
 	/**
 	 * The <code>caption</code> element.
-	 * 
 	 * @return this
 	 */
-	public T caption(Object... params) {
-		return $("caption", params);
+	public T caption(Object...params) {
+	  return $("caption", params);
 	}
-
 	/**
 	 * The <code>cite</code> element.
-	 * 
 	 * @return this
 	 */
-	public T cite(Object... params) {
-		return $("cite", params);
+	public T cite(Object...params) {
+	  return $("cite", params);
 	}
-
 	/**
 	 * The <code>code</code> element.
-	 * 
 	 * @return this
 	 */
-	public T code(Object... params) {
-		return $("code", params);
+	public T code(Object...params) {
+	  return $("code", params);
 	}
-
 	/**
 	 * The <code>col</code> element.
-	 * 
 	 * @return this
 	 */
-	public T col(Object... params) {
-		return $("col", params);
+	public T col(Object...params) {
+	  return $("col", params);
 	}
-
 	/**
 	 * The <code>colgroup</code> element.
-	 * 
 	 * @return this
 	 */
-	public T colgroup(Object... params) {
-		return $("colgroup", params);
+	public T colgroup(Object...params) {
+	  return $("colgroup", params);
 	}
-
 	/**
 	 * The <code>command</code> element.
-	 * 
 	 * @return this
 	 */
-	public T command(Object... params) {
-		return $("command", params);
+	public T command(Object...params) {
+	  return $("command", params);
 	}
-
 	/**
 	 * The <code>datalist</code> element.
-	 * 
 	 * @return this
 	 */
-	public T datalist(Object... params) {
-		return $("datalist", params);
+	public T datalist(Object...params) {
+	  return $("datalist", params);
 	}
-
 	/**
 	 * The <code>dd</code> element.
-	 * 
 	 * @return this
 	 */
-	public T dd(Object... params) {
-		return $("dd", params);
+	public T dd(Object...params) {
+	  return $("dd", params);
 	}
-
 	/**
 	 * The <code>del</code> element.
-	 * 
 	 * @return this
 	 */
-	public T del(Object... params) {
-		return $("del", params);
+	public T del(Object...params) {
+	  return $("del", params);
 	}
-
 	/**
 	 * The <code>details</code> element.
-	 * 
 	 * @return this
 	 */
-	public T details(Object... params) {
-		return $("details", params);
+	public T details(Object...params) {
+	  return $("details", params);
 	}
-
 	/**
 	 * The <code>dfn</code> element.
-	 * 
 	 * @return this
 	 */
-	public T dfn(Object... params) {
-		return $("dfn", params);
+	public T dfn(Object...params) {
+	  return $("dfn", params);
 	}
-
 	/**
 	 * The <code>div</code> element.
-	 * 
 	 * @return this
 	 */
-	public T div(Object... params) {
-		return $("div", params);
+	public T div(Object...params) {
+	  return $("div", params);
 	}
-
 	/**
 	 * The <code>dl</code> element.
-	 * 
 	 * @return this
 	 */
-	public T dl(Object... params) {
-		return $("dl", params);
+	public T dl(Object...params) {
+	  return $("dl", params);
 	}
-
 	/**
 	 * The <code>dt</code> element.
-	 * 
 	 * @return this
 	 */
-	public T dt(Object... params) {
-		return $("dt", params);
+	public T dt(Object...params) {
+	  return $("dt", params);
 	}
-
 	/**
 	 * The <code>em</code> element.
-	 * 
 	 * @return this
 	 */
-	public T em(Object... params) {
-		return $("em", params);
+	public T em(Object...params) {
+	  return $("em", params);
 	}
-
 	/**
 	 * The <code>embed</code> element.
-	 * 
 	 * @return this
 	 */
-	public T embed(Object... params) {
-		return $("embed", params);
+	public T embed(Object...params) {
+	  return $("embed", params);
 	}
-
 	/**
 	 * The <code>fieldset</code> element.
-	 * 
 	 * @return this
 	 */
-	public T fieldset(Object... params) {
-		return $("fieldset", params);
+	public T fieldset(Object...params) {
+	  return $("fieldset", params);
 	}
-
 	/**
 	 * The <code>figcaption</code> element.
-	 * 
 	 * @return this
 	 */
-	public T figcaption(Object... params) {
-		return $("figcaption", params);
+	public T figcaption(Object...params) {
+	  return $("figcaption", params);
 	}
-
 	/**
 	 * The <code>figure</code> element.
-	 * 
 	 * @return this
 	 */
-	public T figure(Object... params) {
-		return $("figure", params);
+	public T figure(Object...params) {
+	  return $("figure", params);
 	}
-
 	/**
 	 * The <code>footer</code> element.
-	 * 
 	 * @return this
 	 */
-	public T footer(Object... params) {
-		return $("footer", params);
+	public T footer(Object...params) {
+	  return $("footer", params);
 	}
-
 	/**
 	 * The <code>form</code> element.
-	 * 
 	 * @return this
 	 */
-	public T form(Object... params) {
-		return $("form", params);
+	public T form(Object...params) {
+	  return $("form", params);
 	}
-
 	/**
 	 * The <code>h1</code> element.
-	 * 
 	 * @return this
 	 */
-	public T h1(Object... params) {
-		return $("h1", params);
+	public T h1(Object...params) {
+	  return $("h1", params);
 	}
-
 	/**
 	 * The <code>h2</code> element.
-	 * 
 	 * @return this
 	 */
-	public T h2(Object... params) {
-		return $("h2", params);
+	public T h2(Object...params) {
+	  return $("h2", params);
 	}
-
 	/**
 	 * The <code>h3</code> element.
-	 * 
 	 * @return this
 	 */
-	public T h3(Object... params) {
-		return $("h3", params);
+	public T h3(Object...params) {
+	  return $("h3", params);
 	}
-
 	/**
 	 * The <code>h4</code> element.
-	 * 
 	 * @return this
 	 */
-	public T h4(Object... params) {
-		return $("h4", params);
+	public T h4(Object...params) {
+	  return $("h4", params);
 	}
-
 	/**
 	 * The <code>h5</code> element.
-	 * 
 	 * @return this
 	 */
-	public T h5(Object... params) {
-		return $("h5", params);
+	public T h5(Object...params) {
+	  return $("h5", params);
 	}
-
 	/**
 	 * The <code>h6</code> element.
-	 * 
 	 * @return this
 	 */
-	public T h6(Object... params) {
-		return $("h6", params);
+	public T h6(Object...params) {
+	  return $("h6", params);
 	}
-
 	/**
 	 * The <code>head</code> element.
-	 * 
 	 * @return this
 	 */
-	public T head(Object... params) {
-		return $("head", params);
+	public T head(Object...params) {
+	  return $("head", params);
 	}
-
 	/**
 	 * The <code>header</code> element.
-	 * 
 	 * @return this
 	 */
-	public T header(Object... params) {
-		return $("header", params);
+	public T header(Object...params) {
+	  return $("header", params);
 	}
-
 	/**
 	 * The <code>hgroup</code> element.
-	 * 
 	 * @return this
 	 */
-	public T hgroup(Object... params) {
-		return $("hgroup", params);
+	public T hgroup(Object...params) {
+	  return $("hgroup", params);
 	}
-
 	/**
 	 * The <code>hr</code> element.
-	 * 
 	 * @return this
 	 */
-	public T hr(Object... params) {
-		return $("hr", params);
+	public T hr(Object...params) {
+	  return $("hr", params);
 	}
-
 	/**
 	 * The <code>html</code> element.
-	 * 
 	 * @return this
 	 */
-	public T html(Object... params) {
-		return $("html", params);
+	public T html(Object...params) {
+	  return $("html", params);
 	}
-
 	/**
 	 * The <code>i</code> element.
-	 * 
 	 * @return this
 	 */
-	public T i(Object... params) {
-		return $("i", params);
+	public T i(Object...params) {
+	  return $("i", params);
 	}
-
 	/**
 	 * The <code>iframe</code> element.
-	 * 
 	 * @return this
 	 */
-	public T iframe(Object... params) {
-		return $("iframe", params);
+	public T iframe(Object...params) {
+	  return $("iframe", params);
 	}
-
 	/**
 	 * The <code>img</code> element.
-	 * 
 	 * @return this
 	 */
-	public T img(Object... params) {
-		return $("img", params);
+	public T img(Object...params) {
+	  return $("img", params);
 	}
-
 	/**
 	 * The <code>input</code> element.
-	 * 
 	 * @return this
 	 */
-	public T input(Object... params) {
-		return $("input", params);
+	public T input(Object...params) {
+	  return $("input", params);
 	}
-
 	/**
 	 * The <code>ins</code> element.
-	 * 
 	 * @return this
 	 */
-	public T ins(Object... params) {
-		return $("ins", params);
+	public T ins(Object...params) {
+	  return $("ins", params);
 	}
-
 	/**
 	 * The <code>kbd</code> element.
-	 * 
 	 * @return this
 	 */
-	public T kbd(Object... params) {
-		return $("kbd", params);
+	public T kbd(Object...params) {
+	  return $("kbd", params);
 	}
-
 	/**
 	 * The <code>keygen</code> element.
-	 * 
 	 * @return this
 	 */
-	public T keygen(Object... params) {
-		return $("keygen", params);
+	public T keygen(Object...params) {
+	  return $("keygen", params);
 	}
-
 	/**
 	 * The <code>label</code> element.
-	 * 
 	 * @return this
 	 */
-	public T label(Object... params) {
-		return $("label", params);
+	public T label(Object...params) {
+	  return $("label", params);
 	}
-
 	/**
 	 * The <code>legend</code> element.
-	 * 
 	 * @return this
 	 */
-	public T legend(Object... params) {
-		return $("legend", params);
+	public T legend(Object...params) {
+	  return $("legend", params);
 	}
-
 	/**
 	 * The <code>li</code> element.
-	 * 
 	 * @return this
 	 */
-	public T li(Object... params) {
-		return $("li", params);
+	public T li(Object...params) {
+	  return $("li", params);
 	}
-
 	/**
 	 * The <code>link</code> element.
-	 * 
 	 * @return this
 	 */
-	public T link(Object... params) {
-		return $("link", params);
+	public T link(Object...params) {
+	  return $("link", params);
 	}
-
+	/**
+	 * The <code>main</code> element.
+	 * @return this
+	 */
+	public T main(Object...params) {
+	  return $("main", params);
+	}
 	/**
 	 * The <code>map</code> element.
-	 * 
 	 * @return this
 	 */
-	public T mapp(Object... params) {
-		return $("map", params);
+	public T mapp(Object...params) {
+	  return $("map", params);
 	}
-
 	/**
 	 * The <code>mark</code> element.
-	 * 
 	 * @return this
 	 */
-	public T mark(Object... params) {
-		return $("mark", params);
+	public T mark(Object...params) {
+	  return $("mark", params);
 	}
-
 	/**
 	 * The <code>menu</code> element.
-	 * 
 	 * @return this
 	 */
-	public T menu(Object... params) {
-		return $("menu", params);
+	public T menu(Object...params) {
+	  return $("menu", params);
 	}
-
+	/**
+	 * The <code>menuitem</code> element.
+	 * @return this
+	 */
+	public T menuitem(Object...params) {
+	  return $("menuitem", params);
+	}
 	/**
 	 * The <code>meta</code> element.
-	 * 
 	 * @return this
 	 */
-	public T meta(Object... params) {
-		return $("meta", params);
+	public T meta(Object...params) {
+	  return $("meta", params);
 	}
-
 	/**
 	 * The <code>meter</code> element.
-	 * 
 	 * @return this
 	 */
-	public T meter(Object... params) {
-		return $("meter", params);
+	public T meter(Object...params) {
+	  return $("meter", params);
 	}
-
 	/**
 	 * The <code>nav</code> element.
-	 * 
 	 * @return this
 	 */
-	public T nav(Object... params) {
-		return $("nav", params);
+	public T nav(Object...params) {
+	  return $("nav", params);
 	}
-
 	/**
 	 * The <code>noscript</code> element.
-	 * 
 	 * @return this
 	 */
-	public T noscript(Object... params) {
-		return $("noscript", params);
+	public T noscript(Object...params) {
+	  return $("noscript", params);
 	}
-
 	/**
 	 * The <code>object</code> element.
-	 * 
 	 * @return this
 	 */
-	public T object(Object... params) {
-		return $("object", params);
+	public T object(Object...params) {
+	  return $("object", params);
 	}
-
 	/**
 	 * The <code>ol</code> element.
-	 * 
 	 * @return this
 	 */
-	public T ol(Object... params) {
-		return $("ol", params);
+	public T ol(Object...params) {
+	  return $("ol", params);
 	}
-
 	/**
 	 * The <code>optgroup</code> element.
-	 * 
 	 * @return this
 	 */
-	public T optgroup(Object... params) {
-		return $("optgroup", params);
+	public T optgroup(Object...params) {
+	  return $("optgroup", params);
 	}
-
 	/**
 	 * The <code>option</code> element.
-	 * 
 	 * @return this
 	 */
-	public T option(Object... params) {
-		return $("option", params);
+	public T option(Object...params) {
+	  return $("option", params);
 	}
-
 	/**
 	 * The <code>output</code> element.
-	 * 
 	 * @return this
 	 */
-	public T output(Object... params) {
-		return $("output", params);
+	public T output(Object...params) {
+	  return $("output", params);
 	}
-
 	/**
 	 * The <code>p</code> element.
-	 * 
 	 * @return this
 	 */
-	public T p(Object... params) {
-		return $("p", params);
+	public T p(Object...params) {
+	  return $("p", params);
 	}
-
 	/**
 	 * The <code>param</code> element.
-	 * 
 	 * @return this
 	 */
-	public T param(Object... params) {
-		return $("param", params);
+	public T param(Object...params) {
+	  return $("param", params);
 	}
-
+	/**
+	 * The <code>path</code> element.
+	 * @return this
+	 */
+	public T path(Object...params) {
+	  return $("path", params);
+	}
 	/**
 	 * The <code>pre</code> element.
-	 * 
 	 * @return this
 	 */
-	public T pre(Object... params) {
-		return $("pre", params);
+	public T pre(Object...params) {
+	  return $("pre", params);
 	}
-
 	/**
 	 * The <code>progress</code> element.
-	 * 
 	 * @return this
 	 */
-	public T progress(Object... params) {
-		return $("progress", params);
+	public T progress(Object...params) {
+	  return $("progress", params);
 	}
-
 	/**
 	 * The <code>q</code> element.
-	 * 
 	 * @return this
 	 */
-	public T q(Object... params) {
-		return $("q", params);
+	public T q(Object...params) {
+	  return $("q", params);
 	}
-
 	/**
 	 * The <code>rp</code> element.
-	 * 
 	 * @return this
 	 */
-	public T rp(Object... params) {
-		return $("rp", params);
+	public T rp(Object...params) {
+	  return $("rp", params);
 	}
-
 	/**
 	 * The <code>rt</code> element.
-	 * 
 	 * @return this
 	 */
-	public T rt(Object... params) {
-		return $("rt", params);
+	public T rt(Object...params) {
+	  return $("rt", params);
 	}
-
 	/**
 	 * The <code>ruby</code> element.
-	 * 
 	 * @return this
 	 */
-	public T ruby(Object... params) {
-		return $("ruby", params);
+	public T ruby(Object...params) {
+	  return $("ruby", params);
 	}
-
 	/**
 	 * The <code>s</code> element.
-	 * 
 	 * @return this
 	 */
-	public T s(Object... params) {
-		return $("s", params);
+	public T s(Object...params) {
+	  return $("s", params);
 	}
-
 	/**
 	 * The <code>samp</code> element.
-	 * 
 	 * @return this
 	 */
-	public T samp(Object... params) {
-		return $("samp", params);
+	public T samp(Object...params) {
+	  return $("samp", params);
 	}
-
 	/**
 	 * The <code>script</code> element.
-	 * 
 	 * @return this
 	 */
-	public T script(Object... params) {
-		return $("script", params);
+	public T script(Object...params) {
+	  return $("script", params);
 	}
-
 	/**
 	 * The <code>section</code> element.
-	 * 
 	 * @return this
 	 */
-	public T section(Object... params) {
-		return $("section", params);
+	public T section(Object...params) {
+	  return $("section", params);
 	}
-
 	/**
 	 * The <code>select</code> element.
-	 * 
 	 * @return this
 	 */
-	public T select(Object... params) {
-		return $("select", params);
+	public T select(Object...params) {
+	  return $("select", params);
 	}
-
 	/**
 	 * The <code>small</code> element.
-	 * 
 	 * @return this
 	 */
-	public T small(Object... params) {
-		return $("small", params);
+	public T small(Object...params) {
+	  return $("small", params);
 	}
-
 	/**
 	 * The <code>source</code> element.
-	 * 
 	 * @return this
 	 */
-	public T source(Object... params) {
-		return $("source", params);
+	public T source(Object...params) {
+	  return $("source", params);
 	}
-
 	/**
 	 * The <code>span</code> element.
-	 * 
 	 * @return this
 	 */
-	public T span(Object... params) {
-		return $("span", params);
+	public T span(Object...params) {
+	  return $("span", params);
 	}
-
 	/**
 	 * The <code>strong</code> element.
-	 * 
 	 * @return this
 	 */
-	public T strong(Object... params) {
-		return $("strong", params);
+	public T strong(Object...params) {
+	  return $("strong", params);
 	}
-
 	/**
 	 * The <code>style</code> element.
-	 * 
 	 * @return this
 	 */
-	public T style(Object... params) {
-		return $("style", params);
+	public T style(Object...params) {
+	  return $("style", params);
 	}
-
 	/**
 	 * The <code>sub</code> element.
-	 * 
 	 * @return this
 	 */
-	public T sub(Object... params) {
-		return $("sub", params);
+	public T sub(Object...params) {
+	  return $("sub", params);
 	}
-
 	/**
 	 * The <code>summary</code> element.
-	 * 
 	 * @return this
 	 */
-	public T summary(Object... params) {
-		return $("summary", params);
+	public T summary(Object...params) {
+	  return $("summary", params);
 	}
-
 	/**
 	 * The <code>sup</code> element.
-	 * 
 	 * @return this
 	 */
-	public T sup(Object... params) {
-		return $("sup", params);
+	public T sup(Object...params) {
+	  return $("sup", params);
 	}
-
+	/**
+	 * The <code>svg</code> element.
+	 * @return this
+	 */
+	public T svg(Object...params) {
+	  return $("svg", params);
+	}
 	/**
 	 * The <code>table</code> element.
-	 * 
 	 * @return this
 	 */
-	public T table(Object... params) {
-		return $("table", params);
+	public T table(Object...params) {
+	  return $("table", params);
 	}
-
 	/**
 	 * The <code>tbody</code> element.
-	 * 
 	 * @return this
 	 */
-	public T tbody(Object... params) {
-		return $("tbody", params);
+	public T tbody(Object...params) {
+	  return $("tbody", params);
 	}
-
 	/**
 	 * The <code>td</code> element.
-	 * 
 	 * @return this
 	 */
-	public T td(Object... params) {
-		return $("td", params);
+	public T td(Object...params) {
+	  return $("td", params);
 	}
-
 	/**
 	 * The <code>textarea</code> element.
-	 * 
 	 * @return this
 	 */
-	public T textarea(Object... params) {
-		return $("textarea", params);
+	public T textarea(Object...params) {
+	  return $("textarea", params);
 	}
-
 	/**
 	 * The <code>tfoot</code> element.
-	 * 
 	 * @return this
 	 */
-	public T tfoot(Object... params) {
-		return $("tfoot", params);
+	public T tfoot(Object...params) {
+	  return $("tfoot", params);
 	}
-
 	/**
 	 * The <code>th</code> element.
-	 * 
 	 * @return this
 	 */
-	public T th(Object... params) {
-		return $("th", params);
+	public T th(Object...params) {
+	  return $("th", params);
 	}
-
 	/**
 	 * The <code>thead</code> element.
-	 * 
 	 * @return this
 	 */
-	public T thead(Object... params) {
-		return $("thead", params);
+	public T thead(Object...params) {
+	  return $("thead", params);
 	}
-
 	/**
 	 * The <code>time</code> element.
-	 * 
 	 * @return this
 	 */
-	public T time(Object... params) {
-		return $("time", params);
+	public T time(Object...params) {
+	  return $("time", params);
 	}
-
 	/**
 	 * The <code>title</code> element.
-	 * 
 	 * @return this
 	 */
-	public T title(Object... params) {
-		return $("title", params);
+	public T title(Object...params) {
+	  return $("title", params);
 	}
-
 	/**
 	 * The <code>tr</code> element.
-	 * 
 	 * @return this
 	 */
-	public T tr(Object... params) {
-		return $("tr", params);
+	public T tr(Object...params) {
+	  return $("tr", params);
 	}
-
 	/**
 	 * The <code>track</code> element.
-	 * 
 	 * @return this
 	 */
-	public T track(Object... params) {
-		return $("track", params);
+	public T track(Object...params) {
+	  return $("track", params);
 	}
-
 	/**
 	 * The <code>tt</code> element.
-	 * 
 	 * @return this
 	 */
-	public T tt(Object... params) {
-		return $("tt", params);
+	public T tt(Object...params) {
+	  return $("tt", params);
 	}
-
 	/**
 	 * The <code>u</code> element.
-	 * 
 	 * @return this
 	 */
-	public T u(Object... params) {
-		return $("u", params);
+	public T u(Object...params) {
+	  return $("u", params);
 	}
-
 	/**
 	 * The <code>ul</code> element.
-	 * 
 	 * @return this
 	 */
-	public T ul(Object... params) {
-		return $("ul", params);
+	public T ul(Object...params) {
+	  return $("ul", params);
 	}
-
 	/**
 	 * The <code>var</code> element.
-	 * 
 	 * @return this
 	 */
-	public T var(Object... params) {
-		return $("var", params);
+	public T var(Object...params) {
+	  return $("var", params);
 	}
-
 	/**
 	 * The <code>video</code> element.
-	 * 
 	 * @return this
 	 */
-	public T video(Object... params) {
-		return $("video", params);
+	public T video(Object...params) {
+	  return $("video", params);
 	}
-
 	/**
 	 * The <code>wbr</code> element.
-	 * 
 	 * @return this
 	 */
-	public T wbr(Object... params) {
-		return $("wbr", params);
+	public T wbr(Object...params) {
+	  return $("wbr", params);
 	}
 }
