@@ -4,7 +4,7 @@ let main;
 
     const ELEMENT_NODE = 1;
     const TEXT_NODE = 3;
-    const HTML_PREFIX = 'x__x';
+    const PREFIX = 'x__x';
 
     function acceptChildren(node, visitor) {
         node.childNodes.forEach(child => accept(child, visitor));
@@ -47,7 +47,7 @@ let main;
 
     function nodeName(node) {
         const name = node.nodeName.toLowerCase();
-        return name.startsWith(HTML_PREFIX) ? name.substring(HTML_PREFIX.length) : name;
+        return name.startsWith(PREFIX) ? name.substring(PREFIX.length) : name;
     }
 
     function startMethod(name) {
@@ -121,7 +121,7 @@ let main;
                     skipNext = false;
                     return;
                 }
-                print(`}\n${indent()}$();\n`);
+                print(`}\n${indent()}$(); // ${nodeName(node)}\n`);
             }
         };
     }
@@ -132,8 +132,11 @@ let main;
 
         const el = document.createElement('div');
         const html = htmlEl.value
-            .replace(/<html/g, `<${HTML_PREFIX}html`)
-            .replace(/<\/html/g, `</${HTML_PREFIX}html`);
+            .replace(/<html/g, `<${PREFIX}html`)
+            .replace(/<\/html/g, `</${PREFIX}html`)
+            .replace(/<body/g, `<${PREFIX}body`)
+            .replace(/<\/body/g, `</${PREFIX}body`)
+            ;
 
         el.innerHTML = html;
 

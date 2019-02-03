@@ -65,7 +65,7 @@
         <h1><a href="https://github.com/krizzdewizz/hyperml" target="_blank">hyperml</a> generator</h1>
 
         <label>HTML</label>
-        <textarea onkeyup="main.generate()" id="html" rows="13" autofocus autocomplete="off" autocorrect="off"
+        <textarea onkeyup="generate()" onpaste="generate()" id="html" rows="13" autofocus autocomplete="off" autocorrect="off"
             autocapitalize="off" spellcheck="false" class="todo-text form-control"></textarea>
 
         <br>
@@ -81,6 +81,11 @@
     <script src="main.js"></script>
 
     <script>
+
+        function generate() {
+            setTimeout(main.generate);
+        }
+
         const html = document.querySelector('#html')
 
         html.value = `<form>
@@ -116,6 +121,7 @@
         //   <b></b>
         // </a>`
         // html.value = `<a-a id='s'>`
+        // html.value = `<html><body></body></html>`
 
         main.generate();
 
